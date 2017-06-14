@@ -37,7 +37,7 @@ function createText() {
   instructionText.style('font-family', 'HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue');
   instructionText.style('font-size', '24px');
   instructionText.style('display', 'none');
-  instructionText.position(width / 2 - 195, 100);
+  instructionText.position(width / 2 - 195, 80);
 }
 
 function draw() {
@@ -80,7 +80,7 @@ function draw() {
     gameOver = true;
   }
 
-  if (youWin) {
+  if (!youWin) {
     winText.style('display', 'block');
   } else {
     winText.style('display', 'none');
