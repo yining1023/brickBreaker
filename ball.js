@@ -34,18 +34,22 @@ function Ball(pos) {
     strokeWeight(2);
     fill(255);
     ellipse(this.pos.x, this.pos.y, this.r * 2, this.r * 2);
+    ellipse(this.pos.x, this.pos.y, this.r / 2 * 3, this.r / 2 * 3);
+    ellipse(this.pos.x, this.pos.y, this.r, this.r);
+    ellipse(this.pos.x, this.pos.y, this.r / 2, this.r / 2);
     noFill();
     stroke(0);
     strokeWeight(1);
   }
 
   this.checkEdges = function() {
-    if (this.pos.x > width - this.r || this.pos.x < this.r) {
+    if (this.pos.x > width - this.r && this.direction.x > 0) {
       this.direction.x *= -1;
     }
-    if (this.pos.y < this.r) {
-      if (ball.direction.y < 0) this.direction.y *= -1;
+    if (this.pos.x < this.r && this.direction.x < 0) {
+      this.direction.x *= -1;
     }
+    if (this.pos.y < this.r && ball.direction.y < 0) this.direction.y *= -1;
   }
 
   this.meets = function(board) {
