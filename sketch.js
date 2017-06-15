@@ -5,6 +5,7 @@ var gameOver = true;
 var youWin = false;
 var winText;
 var instructionText;
+var drops = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -16,28 +17,12 @@ function setup() {
   board = new Board();
   ball = new Ball();
 
-  createBricks(15);
-  createText();
-}
-
-function createBricks(n) {
-  for (var i = 0; i < n; i++) {
-    bricks.push(new Brick());
+  for (var i = 0; i < 100; i++) {
+    drops[i] = new Drop(Math.floor(random(5)));
   }
-}
 
-function createText() {
-  winText = createP('🎉🎉🎉YOU WIN!🎉🎉🎉');
-  winText.style('font-family', 'HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue');
-  winText.style('font-size', '32px');
-  winText.style('display', 'none');
-  winText.position(width / 2 - 165, 100);
-
-  instructionText = createP("Press 'S' to Start, 'A' / 'D' to move Right / Left");
-  instructionText.style('font-family', 'HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue');
-  instructionText.style('font-size', '24px');
-  instructionText.style('display', 'none');
-  instructionText.position(width / 2 - 200, 80);
+  createBricks(20);
+  createText();
 }
 
 function draw() {
@@ -70,9 +55,10 @@ function draw() {
   if (!gameOver) ball.checkEdges();
   if (!gameOver) ball.update();
 
-  if (ball.pos.y > height - ball.r) {
-    ball.pos = createVector(random(ball.r * 2, width - ball.r), height - 500);
+  if (ball.pos.y > height) {
+    ball.pos = createVector(board.pos.x + board.r, height - 500);
     gameOver = true;
+    ball.shadows = [];
   }
 
   if (bricks.length === 0) {
@@ -82,6 +68,10 @@ function draw() {
 
   if (youWin) {
     winText.style('display', 'block');
+    for (var i = 0; i < drops.length; i++) {
+      drops[i].fall();
+      drops[i].show();
+    }
   } else {
     winText.style('display', 'none');
   }
@@ -104,8 +94,24 @@ function keyPressed() {
   } else if (key === 'd' || key === 'D') {
     board.isMovingRight = true;
   } else if (key === 's' || key === 'S') {
-    if (bricks.length === 0) createBricks(15);
+    if (bricks.length === 0) createBricks(20);
     gameOver = false;
     youWin = false;
   }
+}
+
+function createBricks(n) {
+  for (var i = 0; i < n; i++) {
+    bricks.push(new Brick());
+  }
+}
+
+function createText() {
+  winText = createP('🎉🎉🎉 YOU WIN! 🎉🎉🎉');
+  winText.style('display', 'none');
+  winText.position(width / 2 - 130, 80);
+
+  instructionText = createP("Press 'S' to Start, 'A'/'D' to move Right/Left");
+  instructionText.style('display', 'none');
+  instructionText.position(width / 2 - 240, 100);
 }
