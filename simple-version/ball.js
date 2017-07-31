@@ -1,12 +1,8 @@
 function Ball(pos) {
-  if (pos) {
-    this.pos = pos.copy();
-  } else {
-    this.pos = createVector(width / 2, height - 500);
-  }
+  this.pos = createVector(width / 2, height - 500);
 
   this.r = 30;
-  this.vel = createVector(1, random(1, 2)).mult(4);
+  this.vel = createVector(1, 1).mult(4);
   this.direction = createVector(1, 1);
 
   this.update = function() {
@@ -28,8 +24,11 @@ function Ball(pos) {
     if (this.pos.y < this.r && ball.direction.y < 0) this.direction.y *= -1;
   }
 
-  this.meets = function(board) {
-    if (board.pos.y - this.pos.y > 0 && board.pos.y - this.pos.y < this.r && ball.pos.x > board.pos.x - ball.r && ball.pos.x < board.pos.x + board.r + ball.r) {
+  this.meets = function(paddle) {
+    if (paddle.pos.y - this.pos.y > 0 &&
+        paddle.pos.y - this.pos.y < this.r &&
+        ball.pos.x > paddle.pos.x - ball.r &&
+        ball.pos.x < paddle.pos.x + paddle.w + ball.r) {
       return true;
     } else {
       return false;

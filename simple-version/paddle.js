@@ -1,12 +1,12 @@
 function Paddle() {
-  this.r = 160;
+  this.w = 160;
   this.h = 20;
-  this.pos = createVector(width / 2 - this.r / 2, height - 40);
+  this.pos = createVector(width / 2 - this.w / 2, height - 40);
   this.isMovingLeft = false;
   this.isMovingRight = false;
 
   this.display = function() {
-    rect(this.pos.x, this.pos.y, this.r, this.h);
+    rect(this.pos.x, this.pos.y, this.w, this.h);
   }
 
   this.update = function() {
@@ -23,6 +23,6 @@ function Paddle() {
 
   this.checkEdges = function() {
     if (this.pos.x <= 0) this.pos.x = 0;
-    else if (this.pos.x + this.r >= width) this.pos.x = width - this.r;
+    else if (this.pos.x + this.w >= width) this.pos.x = width - this.w;
   }
 }

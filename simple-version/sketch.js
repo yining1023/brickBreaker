@@ -1,6 +1,7 @@
 var paddle;
 var ball;
 var bricks = [];
+
 var gameOver = true;
 var youWin = false;
 var winText;
@@ -8,10 +9,7 @@ var instructionText;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  ellipseMode(CENTER);
   textAlign(CENTER);
-  noFill();
-  stroke(0);
 
   paddle = new Paddle();
   ball = new Ball();
@@ -50,10 +48,10 @@ function draw() {
   if (!gameOver) ball.checkEdges();
   if (!gameOver) ball.update();
 
+  // game logics
   if (ball.pos.y > height) {
-    ball.pos = createVector(paddle.pos.x + paddle.r, height - 500);
+    ball.pos = createVector(width / 2, height - 500);
     gameOver = true;
-    ball.shadows = [];
   }
 
   if (bricks.length === 0) {

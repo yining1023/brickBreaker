@@ -11,8 +11,6 @@ function Brick(pos, r) {
   }
 
   this.total = 6;
-  this.offset = [];
-  this.index = Math.floor(random(5));
 
   this.display = function() {
     push();
