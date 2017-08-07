@@ -50,7 +50,7 @@ function draw() {
 
   // game logics
   if (ball.pos.y > height) {
-    ball.pos = createVector(width / 2, height - 500);
+    ball.pos = createVector(width / 2, height / 2);
     gameOver = true;
   }
 

@@ -1,5 +1,5 @@
-function Ball(pos) {
-  this.pos = createVector(width / 2, height - 500);
+function Ball() {
+  this.pos = createVector(width / 2, height / 2);
 
   this.r = 30;
   this.vel = createVector(1, 1).mult(4);
