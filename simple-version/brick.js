@@ -1,15 +1,6 @@
 function Brick(pos, r) {
-  if (pos) {
-    this.pos = pos.copy();
-  } else {
-    this.pos = createVector(random(100, width - 100), random(100, height - 400));
-  }
-  if (r) {
-    this.r = r * 0.5;
-  } else {
-    this.r = random(20, 80);
-  }
-
+  this.pos = createVector(random(100, width - 100), random(100, height - 400));
+  this.r = random(20, 80);
   this.total = 6;
 
   this.display = function() {
@@ -26,11 +17,4 @@ function Brick(pos, r) {
     endShape(CLOSE);
     pop();
   }
-
-  this.shrink = function() {
-    var newB = [];
-    newB[0] = new Brick(this.pos, this.r);
-    return newB;
-  }
-
 }

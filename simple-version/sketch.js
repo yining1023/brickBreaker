@@ -2,19 +2,19 @@ var paddle;
 var ball;
 var bricks = [];
 
-var gameOver = true;
+var playingGame = false;
 var youWin = false;
 var winText;
-var instructionText;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  textAlign(CENTER);
 
   paddle = new Paddle();
   ball = new Ball();
 
-  createBricks(20);
+  for (var i = 0; i < 20; i++) {
+    bricks.push(new Brick());
+  }
   createText();
 }
 
@@ -22,53 +22,46 @@ function draw() {
   background(255);
 
   // bricks
-  for (var i = bricks.length - 1; i >= 0; i--) {
+  for (var i = 0; i < bricks.length; i++) {
+    bricks[i].display();
     if (ball.hits(bricks[i])) {
       if (bricks[i].r >= 40) {
-        var newBricks = bricks[i].shrink();
-        bricks = bricks.concat(newBricks);
+        bricks[i].r = bricks[i].r / 2;
+      } else {
+        bricks.splice(i, 1);
       }
-      bricks.splice(i, 1);
       ball.direction.y *= -1;
-      break;
     }
-    bricks[i].display();
   }
 
   // paddle
   paddle.display();
-  if (!gameOver) paddle.checkEdges();
-  if (!gameOver) paddle.update();
+  if (playingGame) paddle.checkEdges();
+  if (playingGame) paddle.update();
 
   // ball
   if (ball.meets(paddle)) {
     if (ball.direction.y > 0) ball.direction.y *= -1;
   }
   ball.display();
-  if (!gameOver) ball.checkEdges();
-  if (!gameOver) ball.update();
+  if (playingGame) ball.checkEdges();
+  if (playingGame) ball.update();
 
   // game logics
   if (ball.pos.y > height) {
     ball.pos = createVector(width / 2, height / 2);
-    gameOver = true;
+    playingGame = false;
   }
 
   if (bricks.length === 0) {
     youWin = true;
-    gameOver = true;
+    playingGame = false;
   }
 
   if (youWin) {
     winText.style('display', 'block');
   } else {
     winText.style('display', 'none');
-  }
-
-  if (gameOver) {
-    instructionText.style('display', 'block');
-  } else {
-    instructionText.style('display', 'none');
   }
 }
 
@@ -83,24 +76,17 @@ function keyPressed() {
   } else if (key === 'd' || key === 'D') {
     paddle.isMovingRight = true;
   } else if (key === 's' || key === 'S') {
-    if (bricks.length === 0) createBricks(20);
-    gameOver = false;
+    if (bricks.length === 0) {
+      for (var i = 0; i < 20; i++) {
+        bricks.push(new Brick());
+      }
+    }
+    playingGame = true;
     youWin = false;
-  }
-}
-
-function createBricks(n) {
-  for (var i = 0; i < n; i++) {
-    bricks.push(new Brick());
   }
 }
 
 function createText() {
   winText = createP('YOU WIN!');
-  winText.style('display', 'none');
-  winText.position(width / 2 - 50, 80);
-
-  instructionText = createP("Press 'S' to Start, 'A'/'D' to move Right/Left");
-  instructionText.style('display', 'none');
-  instructionText.position(width / 2 - 240, 100);
+  winText.position(width / 2, 80);
 }
