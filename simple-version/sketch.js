@@ -3,7 +3,7 @@ var ball;
 var bricks = [];
 
 var gameOver = true;
-var youWin = true;
+var youWin = false;
 var winText;
 var instructionText;
 
