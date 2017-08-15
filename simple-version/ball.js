@@ -25,8 +25,8 @@ function Ball() {
   }
 
   this.meets = function(paddle) {
-    if (paddle.pos.y - this.pos.y > 0 &&
-        paddle.pos.y - this.pos.y < this.r &&
+    if (this.pos.y < paddle.pos.y &&
+        this.pos.y > paddle.pos.y - this.r &&
         ball.pos.x > paddle.pos.x - ball.r &&
         ball.pos.x < paddle.pos.x + paddle.w + ball.r) {
       return true;

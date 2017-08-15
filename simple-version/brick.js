@@ -2,7 +2,7 @@ function Brick(pos, r) {
   if (pos) {
     this.pos = pos.copy();
   } else {
-    this.pos = createVector(random(width), random(height - 400));
+    this.pos = createVector(random(100, width - 100), random(100, height - 400));
   }
   if (r) {
     this.r = r * 0.5;

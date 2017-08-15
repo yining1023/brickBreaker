@@ -3,7 +3,7 @@ var ball;
 var bricks = [];
 
 var gameOver = true;
-var youWin = false;
+var youWin = true;
 var winText;
 var instructionText;
 
@@ -96,9 +96,9 @@ function createBricks(n) {
 }
 
 function createText() {
-  winText = createP('🎉🎉🎉 YOU WIN! 🎉🎉🎉');
+  winText = createP('YOU WIN!');
   winText.style('display', 'none');
-  winText.position(width / 2 - 130, 80);
+  winText.position(width / 2 - 50, 80);
 
   instructionText = createP("Press 'S' to Start, 'A'/'D' to move Right/Left");
   instructionText.style('display', 'none');
